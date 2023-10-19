@@ -1,0 +1,88 @@
+{% extends 'front/master.html' %}
+{% load static %}
+
+{% if user.is_authenticated %}
+
+{% block mainblock%}
+        <!-- Header-->
+        <header class="masthead text-center text-white">
+            <div class="masthead-content">
+                <div class="container px-5">
+                  {% for i in site4 %}
+                    <h1 class="masthead-heading mb-0">{{i.name}}</h1>
+                    <h2 class="masthead-subheading mb-0">{{i.about}}</h2>
+                    {% endfor %}
+                    {% for i in site5 %}
+                    <a class="btn btn-primary btn-xl rounded-pill mt-5" href="#scroll">{{i.name}}</a>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="bg-circle-1 bg-circle"></div>
+            <div class="bg-circle-2 bg-circle"></div>
+            <div class="bg-circle-3 bg-circle"></div>
+            <div class="bg-circle-4 bg-circle"></div>
+        </header>
+        <!-- Content section 1-->
+        <section id="scroll">
+          <div class="container px-5">
+              <div class="row gx-5 align-items-center">
+                  <div class="col-lg-6 order-lg-2">
+                      <div class="p-5"><img class="img-fluid rounded-circle" src="{%static 'front/assets/img/01.jpg' %}" alt="..." /></div>
+                  </div>
+                  <div class="col-lg-6 order-lg-1">
+                      <div class="p-5">
+                        {% for i in site1 %}
+                          <h2 class="display-4" style="color: red;">{{i.name}}</h2>
+                          <p style="color: black;">{{i.about}}</p>
+                            {% endfor%}
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+      <!-- Content section 2-->
+      <section>
+          <div class="container px-5">
+              <div class="row gx-5 align-items-center">
+                  <div class="col-lg-6">
+                      <div class="p-5"><img class="img-fluid rounded-circle" src="{%static 'front/assets/img/02.jpg' %}" alt="..." /></div>
+                  </div>
+                  <div class="col-lg-6">
+                      <div class="p-5">
+                        {% for i in site2 %}
+                          <h2 class="display-4" style="color: red;"> {{i.name}}</h2>
+                          <p style="color: black;">{{i.about}}</p>
+                            {% endfor %}
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+      <!-- Content section 3-->
+      <section>
+          <div class="container px-5">
+              <div class="row gx-5 align-items-center">
+                  <div class="col-lg-6 order-lg-2">
+                      <div class="p-5"><img class="img-fluid rounded-circle" src="{%static 'front/assets/img/03.jpg' %}" alt="..." /></div>
+                  </div>
+                  <div class="col-lg-6 order-lg-1">
+                      <div class="p-5">
+                        {% for i in site3 %}
+                          <h2 class="display-4" style="color: red;">{{i.name}}</h2>
+                          <p style="color: black;">{{i.about}}
+                            </p>
+                            {% endfor %}
+                            <br>
+                            <p>The main goal is to create an environment where students feel free to seek help.</p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+{% endblock %}
+
+{% else %}
+
+Please login
+
+{% endif %}

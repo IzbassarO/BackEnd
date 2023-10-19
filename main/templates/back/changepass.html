@@ -1,0 +1,45 @@
+{% extends 'front/master.html' %}
+{% load static %}
+
+{% if user.is_authenticated %}
+
+{% block mainblock%}
+<br><br><br><br><br>
+
+<div class="mainDiv text-center">
+    <div class="cardStyle">
+      <form action="" method="post" name="signupForm" id="signupForm">
+        
+        <img src="" id="signupLogo"/>
+        
+        <h2 class="formTitle">
+          Change your password
+        </h2>
+        <form action="{%url 'change_pass' %}" method="post" enctype="multipart/form-data" class="form-horizontal form-bordered">
+            {% csrf_token %}
+
+            <div class="form-group justify-content-center">
+                <div class="col-md-3 justify-content-between">
+                    <input type="password" id="txt" id="oldpass" name="oldpass" class="form-control" placeholder="Old Password" required>
+                </div>
+                <div class="col-md-3">
+                    <input type="password" id="txt" id="newpass" name="newpass" class="form-control" placeholder="New Password" required>
+                </div>
+              </div>
+                
+              <div class="form-group">
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn0sm btn-primary"><i class="fa fa-angle-right"></i>Submit</button>
+                </div>
+              </div>
+        </form>
+    </form>
+    </div>
+  </div>
+      <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+{% endblock %}
+
+{% else %}
+Please login
+      
+{% endif %}
