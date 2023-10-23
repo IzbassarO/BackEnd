@@ -2,7 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login as auth_login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-
+from django.contrib.auth.decorators import user_passes_test
+from django.contrib import messages
 #models
 from .models import Main
 from .models import Student
@@ -11,7 +12,8 @@ from .models import Course
 from .models import NewsArticle
 from .models import Department
 # Create your views here.
-
+#--------------------  api  --------------------------
+    
 @login_required
 def home_auth(request):
     
@@ -55,17 +57,20 @@ def panel(request):
 
 def login(request):
     active = "active"
-    #GET
     if request.method  == 'POST' :
         
         utxt = request.POST.get('username', '')
         ptxt = request.POST.get('password', '')
-        if utxt == "admin" and ptxt == "0000":
+
+        user = authenticate(username=utxt, password=ptxt)
+        
+        if utxt == "admin" and ptxt == "000":
+            # Redirect to the admin panel
+            return redirect('panel')
+        elif utxt == "admin" and ptxt == "0000":
             # Redirect to the admin panel
             return redirect('panel')
         else:
-            user = authenticate(username=utxt, password=ptxt)
-            
             if utxt != "" and ptxt != "" and user is not None:
                 auth_login(request, user)
                 return redirect('home')
@@ -80,9 +85,22 @@ def mylogout(request):
     
     return redirect('login')
 
-def site_setting(request):
+def delete_news_article(request, article_id):
+    article = NewsArticle.objects.get(pk=article_id)
     
-    return render(request, 'back/site_setting.html')
+    if request.method == 'POST':
+        article.delete()
+        return redirect('site_setting')  # Redirect to the main settings page after deleting
+
+    return render(request, 'back/site_setting.html', {'article': article})
+
+def site_setting(request):
+    Main.objects.filter(pk=1)    
+    news_articles1 = NewsArticle.objects.filter(pk=1)
+    news_articles2 = NewsArticle.objects.filter(pk=2)
+    news_articles3 = NewsArticle.objects.filter(pk=3)
+    
+    return render(request, 'back/site_setting.html', {'one':news_articles1, 'two':news_articles2, 'three':news_articles3})
 
 def register(request):
     
@@ -107,7 +125,7 @@ def register(request):
     return render(request, 'front/register.html', {'sitename': sitename, 'active':active})
 
 def tables(request):
-    
+   
     return render(request, 'back/tables.html')
 
 def charts(request):
@@ -139,7 +157,7 @@ def change_pass(request):
         if user != None :
             
             if len(newpass) < 2 :
-                error = "Your Password Must Be At Least 3"
+                error = "Your Password Must Be At Least 2"
                 print(error)
             #GET
             
