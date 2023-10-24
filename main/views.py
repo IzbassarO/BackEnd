@@ -71,7 +71,9 @@ def login(request):
         ptxt = request.POST.get('password', '')
 
         user = authenticate(username=utxt, password=ptxt)
-        
+        hash_password = make_password(ptxt)
+        user = User.objects.get(username=utxt)
+
         if request.user.is_superuser:
             # Redirect to the admin panel
             return redirect('panel')
@@ -100,6 +102,12 @@ def delete_news_article(request, article_id):
     return render(request, 'back/site_setting.html', {'article': article})
 
 def site_setting(request):
+    
+    #login check start
+    if not request.user.is_authenticated :
+        return redirect('login')
+    #login check end
+    
     Main.objects.filter(pk=1)    
     news_articles1 = NewsArticle.objects.filter(pk=1)
     news_articles2 = NewsArticle.objects.filter(pk=2)
@@ -120,10 +128,11 @@ def register(request):
             msg = "Your Pass Didn't Match"
             print(msg)
         else :
-        
+
         #POST
             if len(User.objects.filter(username=uname)) == 0 and len(User.objects.filter(email=email)) == 0 :
-                user = User.objects.create_user(username=uname, email=email, password=password1)
+                hash_password = make_password(password1)
+                user = User.objects.create_user(username=uname, email=email, password=hash_password)
                 auth_login(request, user)
                 return redirect('login')
     
@@ -209,9 +218,17 @@ def profile(request):
     
     if request.method == 'POST':
         data.delete()
-        
+        objs = User.objects.all()
         return redirect('back/profile.html', {'objs' : objs})
     else:
         objs = User.objects.all()
         return render(request, 'back/profile.html', {'objs' : objs})
 
+def user_page(request):
+    #login check start
+    if not request.user.is_authenticated :
+        return redirect('login')
+    #login check end
+    
+    
+    return render(request, 'front/user.html', {'objs': request.user})

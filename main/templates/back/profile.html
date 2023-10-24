@@ -3,44 +3,78 @@
 
 {% block mainblock%}
 
+<style>
+    table#mainTable {
+        table-layout: fixed;
+        width: 100%;
+    }
+
+    table#mainTable td {
+        word-wrap: break-word;
+        text-overflow: ellipsis;
+    }
+    table#mainTable th:nth-child(1) {
+        width: 50px; /* Adjust the width as needed */
+    }
+
+    table#mainTable th:nth-child(3) {
+        width: 80px; /* Adjust the width as needed */
+    }
+
+    table#mainTable th:nth-child(5) {
+        width: 200px; /* Adjust the width as needed */
+    }
+</style>
+
 <br><br><br><br><br><br><br><br><br>
 <div class="container">
     <section class="section">
-        <div class="row">
-            <div class="col">
-                <table id="mainTable" class="striped col-sm">
-                    <thead>
-                        <tr>
-                            <th style="color: black;">S.No</th>
-                            <th style="color: black;">Username</th>
-                            <th style="color: black;">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for obj in objs %}
-                        <tr>
-                            <td style="color: black;">{{forloop.counter}}</td>
-                            <form id="edit-form-{{ obj.id }}" style="display: none;" method="post" action="{% url 'edit-person' obj.id %}">
-                                {% csrf_token %}
-                            <td style="color: black;"><input type="text" name="new_username" id="new-username-{{ obj.id }}" value="{{ obj.username }}"></td>
-                            <td>
-                                <button type="submit" class="button" style="background-color: green; color: white;">Save</button>
-                            </form>
-                            
+                    <table id="mainTable">
+                        <thead>
+                            <tr>
+                                <th style="color: black;">No</th>
+                                <th style="color: black;">Username</th>
+                                <th style="color: black;">Status</th>
+                                <th style="color: black;">Date Login</th>
+                                <th style="color: black;">Password</th>
+                                <th style="color: black;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for obj in objs %}
+                            <tr>
+                                <td style="color: rgb(245, 5, 5);">{{forloop.counter}}</td>
+                                <form id="edit-form-{{ obj.id }}" style="display: none;" method="post" action="{% url 'edit-person' obj.id %}">
+                                    {% csrf_token %}
+                                    <td style="color: black;"><input type="text" name="new_username" id="new-username-{{ obj.id }}" value="{{ obj.username }}"></td>
+                                </form>
+                                <td>
+                                    {% if obj.is_superuser %}
+                                    <label for="status" style="color: gold;">superuser</label>
+                                    {% else %}
+                                    <label for="status" style="color: silver;">user</label>
+                                    {% endif %}
+                                </td>
+                                <td style="color: black;" >{{obj.last_login}}</td>
+                                <td class="password-cell" style="word-wrap: break-word;">{{obj.password}}</td>
+                                <td>
+                                    <button type="submit" class="button" style="background-color: green; color: white;">Save</button>
+                                </form>
                                 <form action="{% url 'delete-person' obj.id %}" method="post">
                                     {% csrf_token %}
+                                    {% if not obj.is_superuser %}
                                     <button type="submit" class="button" style="background-color: red; color: white;">
                                         <i class="material-icons">delete</i>Delete
                                     </button>
-                                </form>                    
-                            </td>
-                        </tr>
-                        {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-</section>
+                                    {% endif %}
+                                </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+    </section>
+    
 </div>
 
 <br><br><br><br><br><br><br><br><br><br>

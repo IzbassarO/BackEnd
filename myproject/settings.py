@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 import os
-import environ
 
 from pathlib import Path
 
@@ -77,8 +76,6 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-env = environ.Env()
-environ.Env.read_env()
 
 DATABASES = {
     'default': {
@@ -131,3 +128,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# settings.py
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.BCryptPasswordHasher',
+]

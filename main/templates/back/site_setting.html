@@ -1,6 +1,6 @@
 {% extends 'front/master.html' %}
 {% load static %}
-
+{% if user.is_authenticated %}
 {% block mainblock%}
 <br><br>
 <!-- News Articles -->
@@ -49,3 +49,8 @@
     </div>
 </div>
 {% endblock %}
+{% else %}
+
+Please login
+
+{% endif %}

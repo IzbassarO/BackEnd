@@ -1,0 +1,49 @@
+{% extends 'front/master.html' %}
+{% load static %}
+
+{% if user.is_authenticated %}
+
+{% block mainblock%}
+
+<link href="{%static 'front/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+<!-- Core theme CSS (includes Bootstrap)-->
+<link href="{%static 'front/css/styles.css' %}" rel="stylesheet" />
+<!-- Template Main CSS File -->
+<link href="{%static 'front/assets/css/style.css' %}" rel="stylesheet">
+<!-- Vendor CSS Files -->
+<link href="{%static 'front/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+
+
+
+<br><br><br>
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
+    <div class="hero-container" data-aos="fade-in">
+      <h1>Username: {{objs.username}}</h1>
+      <h2 style="color: white;">
+        First & Last Name: {{objs.first_name}} {{objs.last_name}}
+      </h2>
+      <p>I'm <span class="typed" data-typed-items="Designer, Developer, Freelancer, Photographer"></span></p>
+      <div class="row">
+        <p>Password</p>
+        <p>{{objs.password}}</p>
+        <p>Email {{objs.email}}</p>
+        <p>Date Joined {{objs.date_joined}}</p>
+      </div>
+
+      <h1></h1>
+    </div>
+  </section><!-- End Hero -->
+
+
+<script src="{%static 'front/assets/vendor/typed.js/typed.umd.js' %}"></script>
+  <!-- Template Main JS File -->
+<script src="{%static 'front/assets/js/main.js' %}"></script>
+{% endblock %}
+
+{% else %}
+
+Please login
+
+{% endif %}

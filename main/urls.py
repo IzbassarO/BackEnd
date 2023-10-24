@@ -20,4 +20,5 @@ urlpatterns = [
     path('panel/profile', views.profile, name='profile'),
     path('profile/delete-person/<int:pk>/', views.delete_person, name='delete-person'),
     path('profile/edit-person/<int:pk>/', views.edit_person, name='edit-person'),
+    path('user/', views.user_page, name='user'),
 ]
