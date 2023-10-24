@@ -1,6 +1,6 @@
 {% extends 'front/master.html' %}
 {% load static %}
-
+{% if user.is_authenticated %}
 {% block mainblock%}
 
   <main id="main">
@@ -184,3 +184,8 @@
 
   </main><!-- End #main -->
 {% endblock %}
+{% else %}
+
+Please login
+
+{% endif %}

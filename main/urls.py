@@ -1,4 +1,4 @@
-from django.urls import path 
+from django.urls import path
 from django.contrib import admin
 
 from . import views
@@ -6,8 +6,7 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.home_auth, name='home'),
-    path('home_not_auth', views.home_not_auth, name="home_not_auth"),
+    path('', views.home, name='home'),
     path('about/', views.about, name='about'),
     path('panel/', views.panel, name='panel'),
     path('login/', views.login, name='login'),
@@ -18,4 +17,7 @@ urlpatterns = [
     path('panel/site_setting', views.site_setting, name='site_setting'),
     path('panel/change', views.change_pass, name='change_pass'),
     path('panel/error', views.error, name='error'),
+    path('panel/profile', views.profile, name='profile'),
+    path('profile/delete-person/<int:pk>/', views.delete_person, name='delete-person'),
+    path('profile/edit-person/<int:pk>/', views.edit_person, name='edit-person'),
 ]

@@ -1,5 +1,6 @@
 {% extends 'front/master.html' %}
 {% load static %}
+{% if user.is_authenticated %}
 {% block mainblock%}
 <br><br><br><br><br>
 <body class="bg-gradient-primary">
@@ -68,4 +69,9 @@
 
     </div>
     <br><br><br><br><br>
-    {% endblock %}
+{% endblock %}
+{% else %}
+
+Please login
+
+{% endif %}

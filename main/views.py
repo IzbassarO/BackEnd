@@ -1,8 +1,18 @@
-from django.shortcuts import render, get_object_or_404, redirect
+#Assignment 4
+#Web Technologies 2 (Back-End)
+#Learn about Encryption and use encryption to keep your database secure
+#Learn and implement Hashing and Salting with bcrypt
+#Using Sessions and Cookies to persist user log in sessions
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import user_passes_test
+from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 from django.contrib.auth import authenticate, login as auth_login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import user_passes_test
+from django.http import JsonResponse
+#for encryption
+from django.contrib.auth.hashers import make_password
 from django.contrib import messages
 #models
 from .models import Main
@@ -13,9 +23,10 @@ from .models import NewsArticle
 from .models import Department
 # Create your views here.
 #--------------------  api  --------------------------
-    
-@login_required
-def home_auth(request):
+
+
+
+def home(request):
     
     #login check start
     if not request.user.is_authenticated :
@@ -31,9 +42,6 @@ def home_auth(request):
     site4 = Main.objects.filter(pk=4)
     site5 = Main.objects.filter(pk=5)
     return render(request, 'front/home.html', {'sitename':sitename, 'site1':site1, 'site2':site2, 'site3':site3, 'site4': site4, 'site5': site5, 'active':active})
-
-def home_not_auth(request) :
-    return render(request, 'front/login.html')
 
 def about(request):
     
@@ -64,10 +72,7 @@ def login(request):
 
         user = authenticate(username=utxt, password=ptxt)
         
-        if utxt == "admin" and ptxt == "000":
-            # Redirect to the admin panel
-            return redirect('panel')
-        elif utxt == "admin" and ptxt == "0000":
+        if request.user.is_superuser:
             # Redirect to the admin panel
             return redirect('panel')
         else:
@@ -114,11 +119,13 @@ def register(request):
         if password1 != password2 :
             msg = "Your Pass Didn't Match"
             print(msg)
+        else :
         
         #POST
-        if len(User.objects.filter(username=uname)) == 0 and len(User.objects.filter(email=email)) == 0 :
-            
-            user = User.objects.create_user(username=uname, email=email, password=password1)
+            if len(User.objects.filter(username=uname)) == 0 and len(User.objects.filter(email=email)) == 0 :
+                user = User.objects.create_user(username=uname, email=email, password=password1)
+                auth_login(request, user)
+                return redirect('login')
     
     sitename = "Register Page"
     active = "active"
@@ -171,3 +178,40 @@ def change_pass(request):
             print(error)
             
     return render(request, 'back/changepass.html')
+
+@user_passes_test(lambda u: u.is_superuser)
+@login_required
+def delete_person(request, pk):
+    if request.method == 'POST':
+        user_to_delete = get_object_or_404(User, pk=pk)
+        if request.user.is_authenticated :
+            user_to_delete.delete()
+    return redirect('profile')
+
+@user_passes_test(lambda u: u.is_superuser)
+@login_required
+def edit_person(request, pk):
+    if request.method == 'POST':
+        new_username = request.POST.get('new_username')
+        user_to_edit = get_object_or_404(User, pk=pk)
+        user_to_edit.username = new_username
+        user_to_edit.save()
+        return JsonResponse({'success': True})
+    return JsonResponse({'success': False})
+
+def profile(request):
+    #login check start
+    try:
+        data = get_object_or_404(User, id=id)
+    except Exception:
+        print('error')
+    
+    
+    if request.method == 'POST':
+        data.delete()
+        
+        return redirect('back/profile.html', {'objs' : objs})
+    else:
+        objs = User.objects.all()
+        return render(request, 'back/profile.html', {'objs' : objs})
+

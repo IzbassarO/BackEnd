@@ -1,0 +1,68 @@
+{% extends 'front/master.html' %}
+{% load static %}
+
+{% block mainblock%}
+
+<br><br><br><br><br><br><br><br><br>
+<div class="container">
+    <section class="section">
+        <div class="row">
+            <div class="col">
+                <table id="mainTable" class="striped col-sm">
+                    <thead>
+                        <tr>
+                            <th style="color: black;">S.No</th>
+                            <th style="color: black;">Username</th>
+                            <th style="color: black;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for obj in objs %}
+                        <tr>
+                            <td style="color: black;">{{forloop.counter}}</td>
+                            <form id="edit-form-{{ obj.id }}" style="display: none;" method="post" action="{% url 'edit-person' obj.id %}">
+                                {% csrf_token %}
+                            <td style="color: black;"><input type="text" name="new_username" id="new-username-{{ obj.id }}" value="{{ obj.username }}"></td>
+                            <td>
+                                <button type="submit" class="button" style="background-color: green; color: white;">Save</button>
+                            </form>
+                            
+                                <form action="{% url 'delete-person' obj.id %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="button" style="background-color: red; color: white;">
+                                        <i class="material-icons">delete</i>Delete
+                                    </button>
+                                </form>                    
+                            </td>
+                        </tr>
+                        {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+</div>
+
+<br><br><br><br><br><br><br><br><br><br>
+
+<script>
+    (function ($) {
+    $(function () {
+
+        //initialize all modals           
+        $('.modal').modal();
+
+        //now you can open modal from code
+        $('#modal1').modal('open');
+
+        //or by click on trigger
+        $('.trigger-modal').modal();
+
+    }); // end of document ready
+})(jQuery); // end of jQuery name space
+$(document).ready(function(){
+    // the "href" attribute of .modal-trigger must specify the modal ID that   wants to be triggered
+    $('.modal-trigger').leanModal();
+});
+</script>    
+{% endblock %}

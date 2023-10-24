@@ -73,3 +73,7 @@ function onSignup() {
   xhttp.open("GET", "ajax_info.txt", true);
   xhttp.send();
 }
+
+$(document).ready(function() {
+  $('#modal1').modal();
+});

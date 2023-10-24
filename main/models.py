@@ -5,6 +5,13 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+class Register(models.Model):
+    name = models.TextField() 
+    email = models.EmailField()
+    password = models.CharField(max_length=10)
+    
+    class Meta:
+        db_table="Login"
 
 class Main (models.Model):
     
