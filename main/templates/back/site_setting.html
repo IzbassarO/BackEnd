@@ -4,44 +4,120 @@
 {% block mainblock%}
 <br><br>
 <!-- News Articles -->
-<div class="container mt-4">
+<div class="container mt-4" style="background-color: {{bg_color}}; width: 100%; font-size: {{font_size}};" >
+    <br>
+    <!-- Add customization options for font size and background color -->
+    <form id="customize-form" method="post">
+        {% csrf_token %}
+        <label for="font-size" style="color: {{font_color}};">Font Size:</label>
+        <select id="font-size" name="font-size">
+            <option value="medium" {% if font_size == 'medium' %}selected{% endif %}>Medium</option>
+            <option value="small" {% if font_size == 'small' %}selected{% endif %}>Small </option>
+            <option value="smaller" {% if font_size == 'smaller' %}selected{% endif %}>Smaller</option>
+            <option value="large" {% if font_size == 'large' %}selected{% endif %}>Large</option>
+            <option value="larger" {% if font_size == 'larger' %}selected{% endif %}>Larger</option>
+            <option value="x-large" {% if font_size == 'x-large' %}selected{% endif %}>X-Large</option>
+            <option value="x-small" {% if font_size == 'x-small' %}selected{% endif %}>X-Small</option>
+            <option value="xx-large" {% if font_size == 'xx-large' %}selected{% endif %}>XX-Large</option>
+            <option value="xx-small" {% if font_size == 'xx-small' %}selected{% endif %}>XX-Small</option>
+            
+        </select>
+        <label for="bg-color" style="color: {{font_color}}";>Background Color:</label>
+        <select id="bg-color" name="bg-color">
+            <option value="white" {% if bg_color == 'white' %}selected{% endif %}>White</option>
+            <option value="lightgray" {% if bg_color == 'lightgray' %}selected{% endif %}>Light Gray</option>
+            <option value="lightblue" {% if bg_color == 'lightblue' %}selected{% endif %}>Light Blue</option>
+            <option value="dimgray" {% if bg_color == 'dimgray' %}selected{% endif %}>Dimgray</option>
+            <option value="dodgerblue" {% if bg_color == 'dodgerblue' %}selected{% endif %}>Dodgerblue</option>
+            <option value="firebrick" {% if bg_color == 'firebrick' %}selected{% endif %}>Firebrick</option>
+            <option value="floralwhite" {% if bg_color == 'floralwhite' %}selected{% endif %}>Floralwhite</option>
+            <option value="forestgreen" {% if bg_color == 'forestgreen' %}selected{% endif %}>Forestgreen</option>
+            <option value="fuchsia" {% if bg_color == 'fuchsia' %}selected{% endif %}>Fuchsia</option>
+            <option value="gainsboro" {% if bg_color == 'gainsboro' %}selected{% endif %}>Gainsboro</option>
+            <option value="ghostwhite" {% if bg_color == 'ghostwhite' %}selected{% endif %}>Ghostwhite</option>
+            <option value="gold" {% if bg_color == 'gold' %}selected{% endif %}>Gold</option>
+            <option value="gray" {% if bg_color == 'gray' %}selected{% endif %}>Gray</option>
+            <option value="rosybrown" {% if bg_color == 'rosybrown' %}selected{% endif %}>Rosybrown</option>
+            <option value="royalblue" {% if bg_color == 'royalblue' %}selected{% endif %}>Royalblue</option>
+            <option value="saddlebrown" {% if bg_color == 'saddlebrown' %}selected{% endif %}>Saddlebrown</option>
+            <option value="salmon" {% if bg_color == 'salmon' %}selected{% endif %}>Salmon</option>
+            <option value="sandybrown" {% if bg_color == 'sandybrown' %}selected{% endif %}>Sandybrown</option>
+            <option value="seagreen" {% if bg_color == 'seagreen' %}selected{% endif %}>Seagreen</option>
+            <option value="seashell" {% if bg_color == 'seashell' %}selected{% endif %}>Seashell</option>
+            <option value="sienna" {% if bg_color == 'sienna' %}selected{% endif %}>Sienna</option>
+            <option value="silver" {% if bg_color == 'silver' %}selected{% endif %}>Silver</option>
+            <option value="skyblue" {% if bg_color == 'skyblue' %}selected{% endif %}>Skyblue</option>
+            <option value="slateblue" {% if bg_color == 'slateblue' %}selected{% endif %}>Slateblue</option>
+        </select>
+        <label for="bg-color" style="color: {{font_color}}";>Font Color:</label>
+        <select id="font-color" name="font-color">
+            <option value="black" {% if font_color == 'black' %}selected{% endif %}>Black</option>
+            <option value="white" {% if font_color == 'white' %}selected{% endif %}>White</option>
+            <option value="lightgray" {% if font_color == 'lightgray' %}selected{% endif %}>Light Gray</option>
+            <option value="lightblue" {% if font_color == 'lightblue' %}selected{% endif %}>Light Blue</option>
+            <option value="dimgray" {% if font_color == 'dimgray' %}selected{% endif %}>Dimgray</option>
+            <option value="dodgerblue" {% if font_color == 'dodgerblue' %}selected{% endif %}>Dodgerblue</option>
+            <option value="firebrick" {% if font_color == 'firebrick' %}selected{% endif %}>Firebrick</option>
+            <option value="floralwhite" {% if font_color == 'floralwhite' %}selected{% endif %}>Floralwhite</option>
+            <option value="forestgreen" {% if font_color == 'forestgreen' %}selected{% endif %}>Forestgreen</option>
+            <option value="fuchsia" {% if font_color == 'fuchsia' %}selected{% endif %}>Fuchsia</option>
+            <option value="gainsboro" {% if font_color == 'gainsboro' %}selected{% endif %}>Gainsboro</option>
+            <option value="ghostwhite" {% if font_color == 'ghostwhite' %}selected{% endif %}>Ghostwhite</option>
+            <option value="gold" {% if font_color == 'gold' %}selected{% endif %}>Gold</option>
+            <option value="gray" {% if font_color == 'gray' %}selected{% endif %}>Gray</option>
+            <option value="rosybrown" {% if font_color == 'rosybrown' %}selected{% endif %}>Rosybrown</option>
+            <option value="royalblue" {% if font_color == 'royalblue' %}selected{% endif %}>Royalblue</option>
+            <option value="saddlebrown" {% if font_color == 'saddlebrown' %}selected{% endif %}>Saddlebrown</option>
+            <option value="salmon" {% if font_color == 'salmon' %}selected{% endif %}>Salmon</option>
+            <option value="sandybrown" {% if font_color == 'sandybrown' %}selected{% endif %}>Sandybrown</option>
+            <option value="seagreen" {% if font_color == 'seagreen' %}selected{% endif %}>Seagreen</option>
+            <option value="seashell" {% if font_color == 'seashell' %}selected{% endif %}>Seashell</option>
+            <option value="sienna" {% if font_color == 'sienna' %}selected{% endif %}>Sienna</option>
+            <option value="silver" {% if font_color == 'silver' %}selected{% endif %}>Silver</option>
+            <option value="skyblue" {% if font_color == 'skyblue' %}selected{% endif %}>Skyblue</option>
+            <option value="slateblue" {% if font_color == 'slateblue' %}selected{% endif %}>Slateblue</option>
+        </select>
+        <input type="submit" value="Apply Customization" style="color: {{font_color}};">
+    <br>
+    </form>
+
     <div class="row">
         <div class="col-md-8">
             <div class="card mb-4">
-                <img src="news1.jpg" class="card-img-top" alt="News Image">
-                <div class="card-body">
+                <img src="{%static 'front/img/car/car-1.jpg' %}" class="card-img-top" alt="News Image">
+                <div class="card-body" style="color: {{font_color}};">
                     {% for i in one %}
                     <h5 class="card-title">{{ i.title }}</h5>
-                    <p class="card-text">{{ i.content }}</p>
+                    <p class="card-text" >{{ i.content }}</p>
                     <p>{{ i.publish_date }}</p>
-                    <p>{{ i.author.username }}</p>
-                    <a href="#" class="btn btn-primary">Submit</a>
+                    <p>{{ i.author.first_name }} {{ i.author.last_name}}</p>
+                    <a href="#" class="btn btn-primary">Read More</a>
                     {% endfor %}
                 </div>
             </div>
         </div>
         <div class="col-md-4">
             <div class="card mb-4">
-                <img src="news2.jpg" class="card-img-top" alt="News Image">
-                <div class="card-body">
+                <img src="{%static 'front/img/car/car-2.jpg' %}" class="card-img-top" alt="News Image">
+                <div class="card-body" style="color: {{font_color}};">
                     {% for i in two %}
-                    <h5 class="card-title">{{ i.title }}</h5>
+                    <h5 class="card-title" >{{ i.title }}</h5>
                     <p class="card-text">{{ i.content }}</p>
                     <p>{{ i.publish_date }}</p>
-                    <p>{{ i.author.username }}</p>
-                    <a href="#" class="btn btn-primary">Submit</a>
+                    <p>{{ i.author.first_name }} {{ i.author.last_name}}</p>
+                    <a href="#" class="btn btn-primary">Read More</a>
                     {% endfor %}
                 </div>
             </div>
             <div class="card">
-                <img src="news3.jpg" class="card-img-top" alt="News Image">
-                <div class="card-body">
+                <img src="{%static 'front/img/car/car-3.jpg' %}" class="card-img-top" alt="News Image">
+                <div class="card-body" style="color: {{font_color}};">
                     {% for i in three %}
                     <h5 class="card-title">{{ i.title }}</h5>
                     <p class="card-text">{{ i.content }}</p>
                     <p>{{ i.publish_date }}</p>
-                    <p>{{ i.author.username }}</p>
-                    <a href="#" class="btn btn-primary">Submit</a>
+                    <p>{{ i.author.first_name }} {{ i.author.last_name}}</p>
+                    <a href="#" class="btn btn-primary">Read more</a>
                     {% endfor %}
                 </div>
             </div>

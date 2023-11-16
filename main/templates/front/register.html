@@ -22,6 +22,16 @@
                                     <input type="text" id="uname" name="uname" class="form-control form-control-user"
                                         placeholder="Username" required>
                                 </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="first_name" id="first_name" name="first_name" class="form-control form-control-user"
+                                            placeholder="First Name" required>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="last_name" id="last_name" name="last_name" class="form-control form-control-user"
+                                             placeholder="Last Name" required>
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <input type="text" id="email" name="email" class="form-control form-control-user"
                                         placeholder="Email Address" required>
@@ -36,21 +46,13 @@
                                              placeholder="Repeat Password" required>
                                     </div>
                                 </div>
-                                <div class="col-xs-6 text-right">
-                                    <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-plus">Register</i></button>
+                                <div class="">
+                                    <button type="submit" class="btn btn-sm btn-success">Register</button>
                                 </div>
                                 <hr>
-                                <a href="index.html" class="btn btn-google btn-user btn-block">
-                                    <i class="fab fa-google fa-fw"></i> Register with Google
-                                </a>
-                                <a href="index.html" class="btn btn-facebook btn-user btn-block">
-                                    <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
-                                </a>
                             </form>
                             <hr>
-                            <div class="text-center">
-                                <a class="small" href="forgot-password.html">Forgot Password?</a>
-                            </div>
+
                             <div class="text-center">
                                 <a class="small" href="http://127.0.0.1:8000/login/">Already have an account? Login!</a>
                             </div>
@@ -62,4 +64,6 @@
     </div>
     </body>
     <br><br><br>
+
+    
     {% endblock %}

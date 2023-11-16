@@ -10,12 +10,10 @@
     <div class="cardStyle">
       <form action="" method="post" name="signupForm" id="signupForm">
         
-        <img src="" id="signupLogo"/>
-        
         <h2 class="formTitle">
           Change your password
         </h2>
-        <form action="{%url 'change_pass' %}" method="post" enctype="multipart/form-data" class="form-horizontal form-bordered">
+        <form action="{%url 'change' %}" method="post" enctype="multipart/form-data" class="form-horizontal form-bordered">
             {% csrf_token %}
 
             <div class="form-group justify-content-center">

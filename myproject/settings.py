@@ -11,21 +11,27 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 import os
+#Decouple for encryption library with format .env
+from decouple import config
 
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-aya&q+v95+a*59-mm%w&vmkap2y6ikfs0j7js@m1v9#mbv$d%2'
+#Before encryption
+#SECRET_KEY = 'django-insecure-aya&q+v95+a*59-mm%w&vmkap2y6ikfs0j7js@m1v9#mbv$d%2'
+#DEBUG = True
+
+#After encryption
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = config('DEBUG', cast=bool, default=True)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -53,7 +59,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'myproject.urls'
+# Encrypted
+ROOT_URLCONF = config('ROOT_URLCONF')
 
 TEMPLATES = [
     {
@@ -71,20 +78,22 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'myproject.wsgi.application'
+# Encrypted
+WSGI_APPLICATION = config('WSGI_APPLICATION')
 
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# Encrypted Fully
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'BackEnd',
-        'USER': 'guldana',
-        'PASSWORD': '0000',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'ENGINE': config('ENGINE'),
+        'NAME': config('NAME'),
+        'USER': config('USER'),
+        'PASSWORD': config('PASSWORD'),
+        'HOST': config('HOST'),
+        'PORT': config('PORT'),
     }
 }
 
@@ -120,16 +129,26 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
-
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# Encrypted
+STATIC_URL = config('STATIC_URL')
+STATIC_ROOT = os.path.join(BASE_DIR, config('STATIC_ROOT'))
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# Encrypted
+DEFAULT_AUTO_FIELD = config('DEFAULT_AUTO_FIELD')
 
-# settings.py
+# Password Hasher
+# Encrypted
 PASSWORD_HASHERS = [
-    'django.contrib.auth.hashers.BCryptPasswordHasher',
+    config('PASSWORD_HASHERS'),
 ]
+#The default password encryption mechanism used by Django is pbkdf2_sha256
+#Configure Session Engine
+#Fully encrypted
+SESSION_ENGINE = config('SESSION_ENGINE')
+SESSION_COOKIE_AGE = config('SESSION_COOKIE_AGE', cast=float)
+SESSION_COOKIE_NAME = config('SESSION_COOKIE_NAME')
+SESSION_SAVE_EVERY_REQUEST = config('SESSION_SAVE_EVERY_REQUEST')
+SESSION_SERIALIZER = config('SESSION_SERIALIZER')

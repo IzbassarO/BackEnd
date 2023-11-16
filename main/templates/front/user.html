@@ -14,15 +14,13 @@
 <link href="{%static 'front/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
 
-
-
 <br><br><br>
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
     <div class="hero-container" data-aos="fade-in">
       <h1>Username: {{objs.username}}</h1>
       <h2 style="color: white;">
-        First & Last Name: {{objs.first_name}} {{objs.last_name}}
+        First & Last Name: {{objs.first_name}} {{objs.last_name}} 
       </h2>
       <p>I'm <span class="typed" data-typed-items="Designer, Developer, Freelancer, Photographer"></span></p>
       <div class="row">
@@ -30,6 +28,10 @@
         <p>{{objs.password}}</p>
         <p>Email {{objs.email}}</p>
         <p>Date Joined {{objs.date_joined}}</p>
+        <p>Encrypted&Decrypted Message</p>
+        <p>Encrypted: {{msg_enc}}</p>
+        <p>Decrypted: {{msg_dec}}</p>
+        <p></p>
       </div>
 
       <h1></h1>
@@ -40,6 +42,7 @@
 <script src="{%static 'front/assets/vendor/typed.js/typed.umd.js' %}"></script>
   <!-- Template Main JS File -->
 <script src="{%static 'front/assets/js/main.js' %}"></script>
+
 {% endblock %}
 
 {% else %}

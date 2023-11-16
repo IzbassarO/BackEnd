@@ -27,6 +27,12 @@
 </style>
 
 <br><br><br><br><br><br><br><br><br>
+
+<!-- Add the following code for displaying the success message -->
+<div id="success-message" style="display: none;">
+    <h1>{{ success_message }}</h1>
+</div>
+
 <div class="container">
     <section class="section">
                     <table id="mainTable">
@@ -47,7 +53,6 @@
                                 <form id="edit-form-{{ obj.id }}" style="display: none;" method="post" action="{% url 'edit-person' obj.id %}">
                                     {% csrf_token %}
                                     <td style="color: black;"><input type="text" name="new_username" id="new-username-{{ obj.id }}" value="{{ obj.username }}"></td>
-                                </form>
                                 <td>
                                     {% if obj.is_superuser %}
                                     <label for="status" style="color: gold;">superuser</label>
@@ -74,29 +79,7 @@
                         </tbody>
                     </table>
     </section>
-    
 </div>
 
 <br><br><br><br><br><br><br><br><br><br>
-
-<script>
-    (function ($) {
-    $(function () {
-
-        //initialize all modals           
-        $('.modal').modal();
-
-        //now you can open modal from code
-        $('#modal1').modal('open');
-
-        //or by click on trigger
-        $('.trigger-modal').modal();
-
-    }); // end of document ready
-})(jQuery); // end of jQuery name space
-$(document).ready(function(){
-    // the "href" attribute of .modal-trigger must specify the modal ID that   wants to be triggered
-    $('.modal-trigger').leanModal();
-});
-</script>    
 {% endblock %}
